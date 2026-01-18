@@ -27,8 +27,8 @@ export default function DashboardPage() {
         for (const client of clients) {
           const appointments = await getAppointmentsByClientId(client.id);
           const upcomingForClient = appointments
-            .filter((a) => a.dateTime > new Date())
-            .sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime())
+            .filter((a) => new Date(a.dateTime) > new Date())
+            .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime())
             .slice(0, 2)
             .map((a) => ({ ...a, clientName: client.name }));
 
@@ -36,7 +36,7 @@ export default function DashboardPage() {
         }
 
         setUpcomingAppointments(
-          allAppointments.sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime()).slice(0, 5)
+          allAppointments.sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()).slice(0, 5)
         );
       } finally {
         setLoading(false);

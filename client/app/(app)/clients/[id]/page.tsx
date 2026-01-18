@@ -83,7 +83,7 @@ export default function ClientDetailPage() {
   const pinnedNotesFirst = [
     ...pinnedNotes,
     ...notes.filter((n) => !n.isPinned),
-  ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
   const handleEditClient = async (data: ClientFormData) => {
     const updated = await updateClient(clientId, data);
@@ -345,7 +345,7 @@ export default function ClientDetailPage() {
           ) : (
             <div className="space-y-2">
               {transactions
-                .sort((a, b) => b.date.getTime() - a.date.getTime())
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                 .map((transaction) => (
                   <div
                     key={transaction.id}
@@ -395,7 +395,7 @@ export default function ClientDetailPage() {
           ) : (
             <div className="space-y-2">
               {appointments
-                .sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime())
+                .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime())
                 .map((appointment) => (
                   <div
                     key={appointment.id}

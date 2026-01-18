@@ -104,8 +104,8 @@ export default function ClientsPage() {
         break;
       case 'lastActivity':
         sorted.sort((a, b) => {
-          const dateA = a.lastActivity?.getTime() || 0;
-          const dateB = b.lastActivity?.getTime() || 0;
+          const dateA = a.lastActivity ? new Date(a.lastActivity).getTime() : 0;
+          const dateB = b.lastActivity ? new Date(b.lastActivity).getTime() : 0;
           return dateB - dateA;
         });
         break;
@@ -213,7 +213,7 @@ export default function ClientsPage() {
                       ? new Intl.DateTimeFormat('en-US', {
                           month: 'short',
                           day: 'numeric',
-                        }).format(client.lastActivity)
+                        }).format(new Date(client.lastActivity))
                       : 'N/A';
 
                     return (
